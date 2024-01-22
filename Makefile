@@ -15,3 +15,9 @@ rollback:
 		--to "file://migrations" \
 		--dev-url "docker://postgres/15?search_path=public" \
 		--exclude "atlas_schema_revisions"
+
+dev:
+	gin run .
+
+prod:
+	go run .
