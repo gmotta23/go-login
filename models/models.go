@@ -4,8 +4,9 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	Name string
-	Pets []Pet
+	Name     string
+	Nickname string
+	Pets     []Pet
 }
 
 type Pet struct {
