@@ -13,7 +13,7 @@ func RegisterAuthHTTPEndpoints(router *gin.RouterGroup) *gin.RouterGroup {
 		c.JSON(200, gin.H{"message": "pong from auth!"})
 	})
 
-	authGroup.POST("/register", controllers.Register)
+	authGroup.POST("/register", controllers.CreateUser)
 
 	return router
 }
