@@ -4,18 +4,14 @@ import (
 	"fmt"
 	"net/http"
 
+	"gmotta/login/schemas"
+	"gmotta/login/services"
+
 	"github.com/gin-gonic/gin"
 )
 
-type CreateUserData struct {
-	Email     string `json:"email" binding:"required"`
-	Password  string `json:"password" binding:"required"`
-	Name      string `json:"name" binding:"required"`
-	BirthDate string `json:"birthDate" binding:"required"`
-}
-
 func CreateUser(c *gin.Context) {
-	var createUserData CreateUserData
+	var createUserData schemas.CreateUserData
 
 	if err := c.ShouldBindJSON(&createUserData); err != nil {
 		fmt.Println(err)
@@ -23,7 +19,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	fmt.Printf("Received registration request: %+v\n", createUserData)
+	services.CreateUser(createUserData)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Registration successful"})
 }
