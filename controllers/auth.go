@@ -19,7 +19,12 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	services.CreateUser(createUserData)
+	result := services.CreateUser(createUserData)
+
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": result.Error.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Registration successful"})
 }
