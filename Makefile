@@ -17,7 +17,10 @@ rollback:
 		--exclude "atlas_schema_revisions"
 
 dev:
-	gin run .
+	docker-compose up
+
+dev--build:
+	docker-compose up --build
 
 prod:
 	go run .
