@@ -4,20 +4,23 @@ migration:
 	@echo "Generating migration file"
 	atlas migrate diff --env gorm
 
-migrate:
-	atlas migrate apply --url $(DATABASE_URL)
+up:
+	@echo "Upgrading migration"
+	atlas migrate apply \
+	--url $(DATABASE_URL)
 
-rollback:
-	@echo "Rolling back migration"
+down:
+	@echo "Downgrading migration"
+	atlas migrate down \
+	--url $(DATABASE_URL) \
+	--dev-url $(CLEAN_DATABASE_URL)
+
+hash:
+	@echo "Recalculating sum"
 	atlas migrate hash
-	atlas schema apply \
-		--url $(DATABASE_URL) \
-		--to "file://migrations" \
-		--dev-url "docker://postgres/15?search_path=public" \
-		--exclude "atlas_schema_revisions"
 
 dev:
-	docker-compose up
+	docker-compose up -d
 
 dev--build:
 	docker-compose up --build

@@ -22,3 +22,15 @@ services:
       POSTGRES_DB: postgres
     ports:
       - 5432:5432
+
+  clean-db-dev:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5433:5432
+
+  
