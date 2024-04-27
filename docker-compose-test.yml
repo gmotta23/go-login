@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  go-test:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    volumes:
+      - .:/go/src/app
+    ports:
+      - 8081:8080
+    depends_on:
+      - db-test
+    environment:
+      PORT: 8081
+      DATABASE_URL: "postgres://postgres:postgres@:5434/postgres?search_path=public&sslmode=disable"
+
+  db-test:
+    image: postgres
+    restart: always
+    logging:
+      driver: none
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5434:5432
+
+
+  
