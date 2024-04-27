@@ -20,7 +20,7 @@ hash:
 	atlas migrate hash
 
 dev:
-	docker-compose up -d
+	docker-compose up
 
 dev--build:
 	docker-compose up --build
