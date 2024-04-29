@@ -23,7 +23,7 @@ dev:
 	docker-compose up
 
 test:
-	docker-compose -f docker-compose-test.yml up --abort-on-container-exit --attach go-test --no-attach db-test --build
+	docker-compose -f docker-compose-test.yml up --abort-on-container-exit --attach go-test --no-attach db-test
 
 dev--build:
 	docker-compose up --build
