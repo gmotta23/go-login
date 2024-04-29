@@ -9,5 +9,3 @@ RUN go mod download && go mod verify
 COPY . .
 
 ENTRYPOINT ["go", "test", "./tests"]
-
-# CMD [ "exit" ]
