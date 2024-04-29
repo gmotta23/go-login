@@ -12,6 +12,7 @@ services:
     environment:
       PORT: 8081
       DATABASE_URL: "postgres://postgres:postgres@:5432/postgres?search_path=public&sslmode=disable"
+      DATABASE_DSN: "host=db-test user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"
 
   db-test:
     image: postgres
