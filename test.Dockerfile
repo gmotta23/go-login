@@ -8,4 +8,5 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-ENTRYPOINT ["go", "test", "./tests"]
+CMD ["go", "test", "./tests"]
+# CMD ["tail", "-f", "/dev/null"]
