@@ -25,7 +25,7 @@ func (s *AuthSuite) TestBasic3(c *C) {
 	fmt.Println("hello")
 	fmt.Println("hello 2")
 	fmt.Println("hello 2")
-	// c.Assert(42, Equals, "42") // fails
+	c.Assert(42, Equals, "42") // fails
 	c.Assert(io.ErrClosedPipe, ErrorMatches, "io: .*on closed pipe")
 	c.Check(42, Equals, 42)
 }
@@ -45,4 +45,27 @@ func (s *AuthSuite) TestRegister(c *C) {
 	}
 
 	services.CreateUser(userData)
+}
+
+func (s *AuthSuite) TestGet(c *C) {
+	result1 := services.GetUsers()
+
+	fmt.Println("users found")
+	fmt.Println(result1)
+	fmt.Println(result1.RowsAffected)
+
+	userData := schemas.CreateUserData{
+		Email:     "a@b.com",
+		Name:      "Gustavo",
+		Password:  "Test",
+		BirthDate: time.Now(),
+	}
+
+	services.CreateUser(userData)
+
+	result2 := services.GetUsers()
+
+	fmt.Println("users found")
+	fmt.Println(result2)
+	fmt.Println(result2.RowsAffected)
 }

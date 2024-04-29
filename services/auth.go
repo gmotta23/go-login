@@ -32,3 +32,14 @@ func CreateUser(userData schemas.CreateUserData) *gorm.DB {
 
 	return result
 }
+
+func GetUsers() *gorm.DB {
+	result := database.Session.Find(&models.User{})
+
+	if result.Error != nil {
+		// Handle the error internally
+		fmt.Println(result.Error)
+	}
+
+	return result
+}
