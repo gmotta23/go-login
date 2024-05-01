@@ -19,9 +19,9 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	result := services.CreateUser(createUserData)
+	result, err := services.CreateUser(createUserData)
 
-	if result.Error != nil {
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": result.Error.Error()})
 		return
 	}

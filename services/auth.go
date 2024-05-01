@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"gmotta/login/database"
 	"gmotta/login/models"
 	"gmotta/login/schemas"
@@ -18,28 +17,25 @@ func NewUserFromCreateUserData(userData schemas.CreateUserData) models.User {
 	}
 }
 
-func CreateUser(userData schemas.CreateUserData) *gorm.DB {
+func CreateUser(userData schemas.CreateUserData) (*gorm.DB, error) {
 	user := NewUserFromCreateUserData(userData)
-
-	fmt.Println("registering user")
 
 	result := database.Session.Create(&user)
 
 	if result.Error != nil {
-		// Handle the error internally
-		fmt.Println(result.Error)
+		return nil, result.Error
 	}
 
-	return result
+	return result, nil
 }
 
-func GetUsers() *gorm.DB {
+func GetUsers() ([]models.User, error) {
+	var users []models.User
 	result := database.Session.Find(&models.User{})
 
 	if result.Error != nil {
-		// Handle the error internally
-		fmt.Println(result.Error)
+		return nil, result.Error
 	}
 
-	return result
+	return users, nil
 }

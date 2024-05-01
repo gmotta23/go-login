@@ -21,38 +21,34 @@ func (s *AuthSuite) SetUpTest(c *C) {
 
 func TestAuth(t *testing.T) { TestingT(t) }
 
-func (s *AuthSuite) TestBasic3(c *C) {
-	fmt.Println("hello")
-	fmt.Println("hello 2")
-	fmt.Println("hello 2")
+func (s *AuthSuite) TestBasic4(c *C) {
 	c.Assert(42, Equals, "42") // fails
 	c.Assert(io.ErrClosedPipe, ErrorMatches, "io: .*on closed pipe")
 	c.Check(42, Equals, 42)
 }
 
-func (s *AuthSuite) TestBasic4(c *C) {
-	// c.Assert(42, Equals, "42") // fails
-	c.Assert(io.ErrClosedPipe, ErrorMatches, "io: .*on closed pipe")
-	c.Check(42, Equals, 42)
-}
+// func (s *AuthSuite) TestRegister(c *C) {
+// 	fmt.Println("testing register")
+// 	userData := schemas.CreateUserData{
+// 		Email:     "a@b.com",
+// 		Name:      "Gustavo",
+// 		Password:  "Test",
+// 		BirthDate: time.Now(),
+// 	}
 
-func (s *AuthSuite) TestRegister(c *C) {
-	userData := schemas.CreateUserData{
-		Email:     "a@b.com",
-		Name:      "Gustavo",
-		Password:  "Test",
-		BirthDate: time.Now(),
-	}
+// 	result, _ := services.CreateUser(userData)
+// 	fmt.Println("hello")
+// 	fmt.Println(result.Statement.RowsAffected)
 
-	services.CreateUser(userData)
-}
+// 	fmt.Println(result.Statement.Vars...)
+// }
 
 func (s *AuthSuite) TestGet(c *C) {
-	result1 := services.GetUsers()
+	result1, _ := services.GetUsers()
 
-	fmt.Println("users found")
+	// fmt.Println("users found")
 	fmt.Println(result1)
-	fmt.Println(result1.RowsAffected)
+	// fmt.Println(result1.RowsAffected)
 
 	userData := schemas.CreateUserData{
 		Email:     "a@b.com",
@@ -61,11 +57,13 @@ func (s *AuthSuite) TestGet(c *C) {
 		BirthDate: time.Now(),
 	}
 
-	services.CreateUser(userData)
+	resultCreate, _ := services.CreateUser(userData)
 
-	result2 := services.GetUsers()
+	fmt.Println(resultCreate.Statement.RowsAffected)
 
-	fmt.Println("users found")
+	result2, _ := services.GetUsers()
+
+	// fmt.Println("users found")
 	fmt.Println(result2)
-	fmt.Println(result2.RowsAffected)
+	// fmt.Println(result2.RowsAffected)
 }
