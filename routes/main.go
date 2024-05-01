@@ -10,6 +10,7 @@ func SetupRouter(router *gin.RouterGroup) *gin.RouterGroup {
 	})
 
 	RegisterAuthHTTPEndpoints(router)
+	RegisterUsersHTTPEndpoints(router)
 
 	return router
 }

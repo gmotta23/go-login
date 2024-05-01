@@ -31,7 +31,7 @@ func CreateUser(userData schemas.CreateUserData) (*gorm.DB, error) {
 
 func GetUsers() ([]models.User, error) {
 	var users []models.User
-	result := database.Session.Find(&models.User{})
+	result := database.Session.Find(&users)
 
 	if result.Error != nil {
 		return nil, result.Error
