@@ -8,6 +8,8 @@ RUN go mod download && go mod verify
 
 RUN go install github.com/cosmtrek/air@latest
 
+RUN go env -w GOFLAGS="-buildvcs=false"
+
 COPY . .
 
 CMD ["air"]
