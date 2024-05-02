@@ -17,7 +17,7 @@ func (s *UserDatabaseSuite) SetUpTest(c *C) {
 	resetDatabase()
 }
 
-func TestUserService(t *testing.T) { TestingT(t) }
+func TestUserDatabase(t *testing.T) { TestingT(t) }
 
 func (s *UserDatabaseSuite) TestCreateUser(c *C) {
 	userData := models.User{
