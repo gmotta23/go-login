@@ -3,7 +3,7 @@ data "external_schema" "gorm" {
     "go",
     "run",
     "-mod=mod",
-    "./loader",
+    "./atlas",
   ]
 }
 
