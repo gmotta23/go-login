@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	"gmotta/login/models"
+	"gmtc/login/models"
 
 	"ariga.io/atlas-provider-gorm/gormschema"
 )

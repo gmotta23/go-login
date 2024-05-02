@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"gmotta/login/controllers"
+	"gmtc/login/controllers"
 
 	"github.com/gin-gonic/gin"
 )

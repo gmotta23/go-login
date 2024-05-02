@@ -2,8 +2,8 @@ package setup
 
 import (
 	"fmt"
-	"gmotta/login/database"
-	"gmotta/login/routes"
+	"gmtc/login/database"
+	"gmtc/login/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

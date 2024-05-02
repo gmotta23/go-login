@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"gmotta/login/models"
-	"gmotta/login/services"
+	"gmtc/login/models"
+	"gmtc/login/services"
 	"testing"
 	"time"
 

@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"gmotta/login/models"
-	"gmotta/login/services"
+	"gmtc/login/models"
+	"gmtc/login/services"
 
 	"github.com/gin-gonic/gin"
 )

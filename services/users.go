@@ -1,8 +1,8 @@
 package services
 
 import (
-	"gmotta/login/database"
-	"gmotta/login/models"
+	"gmtc/login/database"
+	"gmtc/login/models"
 
 	"gorm.io/gorm"
 )

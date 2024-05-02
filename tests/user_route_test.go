@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"gmotta/login/setup"
+	"gmtc/login/setup"
 	"net/http"
 	"net/http/httptest"
 	"testing"

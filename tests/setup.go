@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"gmotta/login/database"
-	"gmotta/login/models"
+	"gmtc/login/database"
+	"gmtc/login/models"
 )
 
 func resetDatabase() {

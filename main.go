@@ -1,6 +1,6 @@
 package main
 
-import "gmotta/login/setup"
+import "gmtc/login/setup"
 
 func main() {
 	setup.StartServer()

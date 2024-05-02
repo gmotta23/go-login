@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"gmotta/login/services"
+	"gmtc/login/services"
 
 	"github.com/gin-gonic/gin"
 )
