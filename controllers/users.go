@@ -3,13 +3,13 @@ package controllers
 import (
 	"net/http"
 
-	"gmtc/login/services"
+	"gmtc/login/database"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetUsers(c *gin.Context) {
-	result, err := services.GetUsers()
+	result, err := database.GetUsers()
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": err.Error()})

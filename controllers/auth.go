@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
+	"gmtc/login/database"
 	"gmtc/login/models"
-	"gmtc/login/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -55,7 +55,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	result, err := services.CreateUser(userData)
+	result, err := database.CreateUser(userData)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": result.Error.Error()})

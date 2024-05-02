@@ -1,25 +1,25 @@
 package tests
 
 import (
+	"gmtc/login/database"
 	"gmtc/login/models"
-	"gmtc/login/services"
 	"testing"
 	"time"
 
 	. "gopkg.in/check.v1"
 )
 
-type UserServiceSuite struct{}
+type UserDatabaseSuite struct{}
 
-var _ = Suite(&UserServiceSuite{})
+var _ = Suite(&UserDatabaseSuite{})
 
-func (s *UserServiceSuite) SetUpTest(c *C) {
+func (s *UserDatabaseSuite) SetUpTest(c *C) {
 	resetDatabase()
 }
 
 func TestUserService(t *testing.T) { TestingT(t) }
 
-func (s *UserServiceSuite) TestCreateUser(c *C) {
+func (s *UserDatabaseSuite) TestCreateUser(c *C) {
 	userData := models.User{
 		Email:     "a@b.com",
 		Name:      "Gustavo",
@@ -27,12 +27,12 @@ func (s *UserServiceSuite) TestCreateUser(c *C) {
 		BirthDate: time.Now(),
 	}
 
-	result, _ := services.CreateUser(userData)
+	result, _ := database.CreateUser(userData)
 	c.Assert(result.RowsAffected, Equals, int64(1))
 }
 
-func (s *UserServiceSuite) TestGet(c *C) {
-	resultBefore, _ := services.GetUsers()
+func (s *UserDatabaseSuite) TestGet(c *C) {
+	resultBefore, _ := database.GetUsers()
 
 	c.Assert(len(resultBefore), Equals, 0)
 
@@ -42,9 +42,9 @@ func (s *UserServiceSuite) TestGet(c *C) {
 		Password:  "Test",
 		BirthDate: time.Now(),
 	}
-	services.CreateUser(userData)
+	database.CreateUser(userData)
 
-	resultAfter, _ := services.GetUsers()
+	resultAfter, _ := database.GetUsers()
 
 	c.Assert(len(resultAfter), Equals, 1)
 }
