@@ -1,35 +1,26 @@
 package tests
 
 import (
-	"fmt"
-	"gmotta/login/schemas"
+	"gmotta/login/models"
 	"gmotta/login/services"
-	"io"
 	"testing"
 	"time"
 
 	. "gopkg.in/check.v1"
 )
 
-type AuthSuite struct{}
+type UserServiceSuite struct{}
 
-var _ = Suite(&AuthSuite{})
+var _ = Suite(&UserServiceSuite{})
 
-func (s *AuthSuite) SetUpTest(c *C) {
+func (s *UserServiceSuite) SetUpTest(c *C) {
 	resetDatabase()
 }
 
-func TestAuth(t *testing.T) { TestingT(t) }
+func TestUserService(t *testing.T) { TestingT(t) }
 
-func (s *AuthSuite) TestBasic4(c *C) {
-	// c.Assert(42, Equals, "42") // fails
-	c.Assert(io.ErrClosedPipe, ErrorMatches, "io: .*on closed pipe")
-	c.Check(42, Equals, 42)
-}
-
-func (s *AuthSuite) TestRegister(c *C) {
-	fmt.Println("testing register")
-	userData := schemas.CreateUserData{
+func (s *UserServiceSuite) TestCreateUser(c *C) {
+	userData := models.User{
 		Email:     "a@b.com",
 		Name:      "Gustavo",
 		Password:  "Test",
@@ -40,12 +31,12 @@ func (s *AuthSuite) TestRegister(c *C) {
 	c.Assert(result.RowsAffected, Equals, int64(1))
 }
 
-func (s *AuthSuite) TestGet(c *C) {
+func (s *UserServiceSuite) TestGet(c *C) {
 	resultBefore, _ := services.GetUsers()
 
 	c.Assert(len(resultBefore), Equals, 0)
 
-	userData := schemas.CreateUserData{
+	userData := models.User{
 		Email:     "a@b.com",
 		Name:      "Gustavo",
 		Password:  "Test",
