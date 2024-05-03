@@ -9,7 +9,7 @@ import (
 func RegisterAuthHTTPEndpoints(router *gin.RouterGroup) *gin.RouterGroup {
 	authGroup := router.Group("/auth")
 
-	authGroup.POST("/register", controllers.CreateUser)
+	authGroup.POST("/register", controllers.Register)
 
 	return router
 }

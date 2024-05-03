@@ -2,18 +2,16 @@ package database
 
 import (
 	"gmtc/login/models"
-
-	"gorm.io/gorm"
 )
 
-func CreateUser(userData models.User) (*gorm.DB, error) {
+func CreateUser(userData models.User) (*models.User, error) {
 	result := Session.Create(&userData)
 
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	return result, nil
+	return &userData, nil
 }
 
 func GetUsers() ([]models.User, error) {

@@ -28,7 +28,7 @@ func (s *UserDatabaseSuite) TestCreateUser(c *C) {
 	}
 
 	result, _ := database.CreateUser(userData)
-	c.Assert(result.RowsAffected, Equals, int64(1))
+	c.Assert(result.ID, Not(Equals), nil)
 }
 
 func (s *UserDatabaseSuite) TestGet(c *C) {

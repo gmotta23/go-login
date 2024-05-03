@@ -7,6 +7,7 @@ import (
 
 	"gmtc/login/database"
 	"gmtc/login/models"
+	"gmtc/login/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -39,7 +40,7 @@ func SerializeUserData(userData RegisterBody) (models.User, error) {
 	}, nil
 }
 
-func CreateUser(c *gin.Context) {
+func Register(c *gin.Context) {
 	var createUserData RegisterBody
 
 	if err := c.ShouldBindJSON(&createUserData); err != nil {
@@ -49,6 +50,7 @@ func CreateUser(c *gin.Context) {
 	}
 
 	userData, err := SerializeUserData(createUserData)
+	userData.Password, _ = services.HashPassword(userData.Password)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Bad request", "error": err.Error()})
@@ -58,9 +60,9 @@ func CreateUser(c *gin.Context) {
 	result, err := database.CreateUser(userData)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": result.Error.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Registration successful"})
+	c.JSON(http.StatusCreated, gin.H{"user": result})
 }
