@@ -59,6 +59,6 @@ func (s *UserRouteSuite) TestRegister(c *C) {
 	_, idExists := user["ID"]
 	c.Assert(idExists, Equals, true)
 	c.Assert(user["Email"], Equals, payload.Email)
-	c.Assert(user["Password"], Not(Equals), payload.Password)
-	// TODO: remove hashed password from this endpoint
+	_, passwordExists := user["Password"]
+	c.Assert(passwordExists, Equals, false)
 }
