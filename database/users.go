@@ -37,3 +37,14 @@ func GetUsers() ([]UserSubset, error) {
 
 	return users, nil
 }
+
+func FindUserByEmail(email string) (*models.User, error) {
+	var user models.User
+	result := Session.Where("email = ?", email).First(&user)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &user, nil
+}

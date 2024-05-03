@@ -48,3 +48,21 @@ func (s *UserDatabaseSuite) TestGet(c *C) {
 
 	c.Assert(len(resultAfter), Equals, 1)
 }
+
+func (s *UserDatabaseSuite) TestFindUserByEmail(c *C) {
+	userData := models.User{
+		Email:     "a@b.com",
+		Name:      "Gustavo",
+		Password:  "Test",
+		BirthDate: time.Now(),
+	}
+
+	resultBefore, _ := database.FindUserByEmail(userData.Email)
+
+	createdUser, _ := database.CreateUser(userData)
+
+	resultAfter, _ := database.FindUserByEmail(userData.Email)
+
+	c.Assert(resultBefore, IsNil)
+	c.Assert(resultAfter.ID, Equals, createdUser.ID)
+}

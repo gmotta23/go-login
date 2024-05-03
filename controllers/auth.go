@@ -19,6 +19,11 @@ type RegisterBody struct {
 	BirthDate string `json:"birthDate" binding:"required"`
 }
 
+type LoginBody struct {
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
+
 func SerializeUserData(userData RegisterBody) (models.User, error) {
 	loc, err := time.LoadLocation("America/Sao_Paulo")
 
@@ -65,4 +70,30 @@ func Register(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"user": user})
+}
+
+func Login(c *gin.Context) {
+	var loginData LoginBody
+
+	if err := c.ShouldBindJSON(&loginData); err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Bad request", "error": err.Error()})
+		return
+	}
+
+	userInDB, err := database.FindUserByEmail(loginData.Email)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"message": "Not found", "error": err.Error()})
+	}
+
+	passwordMatch := services.CheckPasswordHash(loginData.Password, userInDB.Password)
+
+	if passwordMatch {
+		c.JSON(http.StatusOK, gin.H{"token": "In construction"})
+		return
+	}
+
+	c.JSON(http.StatusUnauthorized, gin.H{"message": "Incorrect user or password"})
+
 }
