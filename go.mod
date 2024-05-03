@@ -1,6 +1,6 @@
 module gmtc/login
 
-go 1.18
+go 1.22
 
 require (
 	ariga.io/atlas-provider-gorm v0.2.0
