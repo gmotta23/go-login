@@ -57,12 +57,12 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	result, err := database.CreateUser(userData)
+	user, err := database.CreateUser(userData)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Internal server error", "error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"user": result})
+	c.JSON(http.StatusCreated, gin.H{"user": user})
 }

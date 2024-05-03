@@ -2,21 +2,34 @@ package database
 
 import (
 	"gmtc/login/models"
+	"time"
 )
 
-func CreateUser(userData models.User) (*models.User, error) {
+type UserSubset struct {
+	ID        uint
+	Name      string
+	Email     string
+	BirthDate time.Time
+}
+
+func CreateUser(userData models.User) (*UserSubset, error) {
 	result := Session.Create(&userData)
 
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	return &userData, nil
+	return &UserSubset{
+			ID:        userData.ID,
+			Name:      userData.Name,
+			Email:     userData.Email,
+			BirthDate: userData.BirthDate},
+		nil
 }
 
-func GetUsers() ([]models.User, error) {
-	var users []models.User
-	result := Session.Find(&users)
+func GetUsers() ([]UserSubset, error) {
+	var users []UserSubset
+	result := Session.Model(&models.User{}).Find(&users)
 
 	if result.Error != nil {
 		return nil, result.Error
