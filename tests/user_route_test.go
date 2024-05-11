@@ -31,6 +31,13 @@ func makeRequest(method string, url string, body any) (*http.Request, error) {
 	return http.NewRequest(method, url, buffer)
 }
 
+func loadResponseBody(w *httptest.ResponseRecorder) map[string]interface{} {
+	var responseBody map[string]interface{}
+	json.Unmarshal(w.Body.Bytes(), &responseBody)
+
+	return responseBody
+}
+
 func TestUserRoute(t *testing.T) { TestingT(t) }
 
 func (s *UserRouteSuite) TestPing(c *C) {
@@ -60,14 +67,11 @@ func (s *UserRouteSuite) TestRegister(c *C) {
 
 	c.Assert(201, Equals, w.Code)
 
-	var responseBody map[string]interface{}
-	json.Unmarshal(w.Body.Bytes(), &responseBody)
+	responseBody := loadResponseBody(w)
 
-	user, _ := responseBody["user"].(map[string]interface{})
+	user := responseBody["user"].(map[string]interface{})
 
-	_, idExists := user["ID"]
-	c.Assert(idExists, Equals, true)
+	c.Assert(user["ID"], NotNil)
+	c.Assert(user["Password"], IsNil)
 	c.Assert(user["Email"], Equals, payload.Email)
-	_, passwordExists := user["Password"]
-	c.Assert(passwordExists, Equals, false)
 }
