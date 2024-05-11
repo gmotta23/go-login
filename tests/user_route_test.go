@@ -20,12 +20,23 @@ func (s *UserRouteSuite) SetUpTest(c *C) {
 	resetDatabase()
 }
 
+func makeRequest(method string, url string, body any) (*http.Request, error) {
+	if body == nil {
+		return http.NewRequest(method, url, nil)
+	}
+
+	encodedBody, _ := json.Marshal(body)
+	buffer := bytes.NewBuffer(encodedBody)
+
+	return http.NewRequest(method, url, buffer)
+}
+
 func TestUserRoute(t *testing.T) { TestingT(t) }
 
 func (s *UserRouteSuite) TestPing(c *C) {
 	router := setup.SetupRouter()
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/api/ping", nil)
+	req, _ := makeRequest("GET", "/api/ping", nil)
 
 	router.ServeHTTP(w, req)
 
@@ -42,10 +53,8 @@ func (s *UserRouteSuite) TestRegister(c *C) {
 		Password:  "Test",
 		BirthDate: "06-07-1995",
 	}
-	jsonPayload, _ := json.Marshal(payload)
 
-	req, _ := http.NewRequest("POST", "/api/auth/register", bytes.NewBuffer(jsonPayload))
-	req.Header.Set("Content-Type", "application/json")
+	req, _ := makeRequest("POST", "/api/auth/register", payload)
 
 	router.ServeHTTP(w, req)
 
