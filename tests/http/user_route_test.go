@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"gmtc/login/controllers"
 	"gmtc/login/setup"
+	. "gmtc/login/tests"
 	"net/http"
 	"net/http/httptest"
 	"testing"

@@ -3,6 +3,7 @@ package tests
 import (
 	"gmtc/login/database"
 	"gmtc/login/models"
+	. "gmtc/login/tests"
 	"testing"
 	"time"
 
