@@ -71,8 +71,10 @@ func (s *UserRouteSuite) TestRegister(c *C) {
 	responseBody := loadResponseBody(w)
 
 	user := responseBody["user"].(map[string]interface{})
+	token := responseBody["token"].(string)
 
 	c.Assert(user["ID"], NotNil)
 	c.Assert(user["Password"], IsNil)
 	c.Assert(user["Email"], Equals, payload.Email)
+	c.Assert(token, NotNil)
 }
