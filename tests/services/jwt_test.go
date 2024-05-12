@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"fmt"
 	"gmtc/login/services"
+	"strconv"
 	"testing"
 
 	. "gopkg.in/check.v1"
@@ -14,13 +14,11 @@ var _ = Suite(&JWTServiceSuite{})
 
 func TestJWTService(t *testing.T) { TestingT(t) }
 
-func (s *JWTServiceSuite) TestCreateJWTToken(c *C) {
+func (s *JWTServiceSuite) TestJWTFlow(c *C) {
 	id := uint(10)
-	result, _ := services.CreateJWTToken(id)
+	signedString, _ := services.CreateJWTToken(id)
 
-	fmt.Println("hello!!!")
-	fmt.Println(result)
-	fmt.Println("Got here!")
+	jwtContent, _ := services.ValidateAndParseJWTToken(signedString)
 
-	c.Assert(1, Equals, 2)
+	c.Assert(jwtContent.ID, Equals, strconv.FormatUint(uint64(id), 10))
 }

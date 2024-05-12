@@ -1,6 +1,7 @@
 package services
 
 import (
+	"log"
 	"strconv"
 	"time"
 
@@ -9,9 +10,10 @@ import (
 
 func CreateJWTToken(ID uint) (string, error) {
 	mySigningKey := []byte("JWTKEY")
+	tokenExpirationTime := time.Hour * 24
 
 	claims := &jwt.RegisteredClaims{
-		ExpiresAt: jwt.NewNumericDate(time.Now().Add(3600)),
+		ExpiresAt: jwt.NewNumericDate(time.Now().Add(tokenExpirationTime)),
 		ID:        strconv.FormatUint(uint64(ID), 10),
 	}
 
@@ -19,4 +21,18 @@ func CreateJWTToken(ID uint) (string, error) {
 	ss, err := token.SignedString(mySigningKey)
 
 	return ss, err
+}
+
+func ValidateAndParseJWTToken(tokenString string) (*jwt.RegisteredClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte("JWTKEY"), nil
+	})
+	if err != nil {
+		return nil, err
+	} else if claims, ok := token.Claims.(*jwt.RegisteredClaims); ok {
+		return claims, nil
+	} else {
+		log.Fatal("JWT parsing failed")
+		return nil, nil
+	}
 }
