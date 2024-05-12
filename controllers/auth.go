@@ -96,8 +96,13 @@ func Login(c *gin.Context) {
 
 	passwordMatch := services.CheckPasswordHash(loginData.Password, userInDB.Password)
 
+	fmt.Println(loginData.Password)
+	fmt.Println(userInDB.Password)
+
 	if passwordMatch {
-		c.JSON(http.StatusOK, gin.H{"token": "In construction"})
+		userSubset := database.ToUserSubset(*userInDB)
+		token, _ := services.CreateJWTToken(userSubset.ID)
+		c.JSON(http.StatusOK, gin.H{"user": userSubset, "token": token})
 		return
 	}
 

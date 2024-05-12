@@ -12,6 +12,14 @@ type UserSubset struct {
 	BirthDate time.Time
 }
 
+func ToUserSubset(userData models.User) *UserSubset {
+	return &UserSubset{
+		ID:        userData.ID,
+		Name:      userData.Name,
+		Email:     userData.Email,
+		BirthDate: userData.BirthDate}
+}
+
 func CreateUser(userData models.User) (*UserSubset, error) {
 	result := Session.Create(&userData)
 
@@ -19,12 +27,7 @@ func CreateUser(userData models.User) (*UserSubset, error) {
 		return nil, result.Error
 	}
 
-	return &UserSubset{
-			ID:        userData.ID,
-			Name:      userData.Name,
-			Email:     userData.Email,
-			BirthDate: userData.BirthDate},
-		nil
+	return ToUserSubset(userData), nil
 }
 
 func GetUsers() ([]UserSubset, error) {

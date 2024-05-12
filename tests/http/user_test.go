@@ -78,3 +78,31 @@ func (s *UserRouteSuite) TestRegister(c *C) {
 	c.Assert(user["Email"], Equals, payload.Email)
 	c.Assert(token, NotNil)
 }
+
+func (s *UserRouteSuite) TestLogin(c *C) {
+	userDB, password := RegisterUser()
+
+	router := setup.SetupRouter()
+	w := httptest.NewRecorder()
+
+	payload := controllers.LoginBody{
+		Email:    userDB.Email,
+		Password: password,
+	}
+
+	req, _ := makeRequest("POST", "/api/auth/login", payload)
+
+	router.ServeHTTP(w, req)
+
+	c.Assert(200, Equals, w.Code)
+
+	responseBody := loadResponseBody(w)
+
+	user := responseBody["user"].(map[string]interface{})
+	token := responseBody["token"].(string)
+
+	c.Assert(user["ID"], Equals, userDB.ID)
+	c.Assert(user["Password"], IsNil)
+	c.Assert(user["Email"], Equals, payload.Email)
+	c.Assert(token, NotNil)
+}
