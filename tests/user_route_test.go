@@ -17,7 +17,7 @@ type UserRouteSuite struct{}
 var _ = Suite(&UserRouteSuite{})
 
 func (s *UserRouteSuite) SetUpTest(c *C) {
-	resetDatabase()
+	ResetDatabase()
 }
 
 func makeRequest(method string, url string, body any) (*http.Request, error) {

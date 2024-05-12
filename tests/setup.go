@@ -5,7 +5,7 @@ import (
 	"gmtc/login/models"
 )
 
-func resetDatabase() {
+func ResetDatabase() {
 	database.Connect()
 
 	database.Session.Exec("drop schema public cascade;")

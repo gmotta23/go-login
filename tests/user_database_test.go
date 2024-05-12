@@ -14,7 +14,7 @@ type UserDatabaseSuite struct{}
 var _ = Suite(&UserDatabaseSuite{})
 
 func (s *UserDatabaseSuite) SetUpTest(c *C) {
-	resetDatabase()
+	ResetDatabase()
 }
 
 func TestUserDatabase(t *testing.T) { TestingT(t) }
