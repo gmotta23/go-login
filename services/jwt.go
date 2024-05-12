@@ -1,8 +1,8 @@
 package services
 
 import (
+	"gmtc/login/utils"
 	"log"
-	"strconv"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -14,7 +14,7 @@ func CreateJWTToken(ID uint) (string, error) {
 
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(tokenExpirationTime)),
-		ID:        strconv.FormatUint(uint64(ID), 10),
+		ID:        utils.UintToString(ID),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
