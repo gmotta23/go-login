@@ -1,7 +1,7 @@
 package services
 
 import (
-	"gmtc/login/utils"
+	"gmtc/login/util"
 	"log"
 	"time"
 
@@ -14,7 +14,7 @@ func CreateJWTToken(ID uint) (string, error) {
 
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(tokenExpirationTime)),
-		ID:        utils.UintToString(ID),
+		ID:        util.UintToString(ID),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

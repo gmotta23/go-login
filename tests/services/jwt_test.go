@@ -2,7 +2,7 @@ package tests
 
 import (
 	"gmtc/login/services"
-	"gmtc/login/utils"
+	"gmtc/login/util"
 	"testing"
 
 	. "gopkg.in/check.v1"
@@ -20,5 +20,5 @@ func (s *JWTServiceSuite) TestJWTFlow(c *C) {
 
 	jwtContent, _ := services.ValidateAndParseJWTToken(signedString)
 
-	c.Assert(jwtContent.ID, Equals, utils.UintToString(id))
+	c.Assert(jwtContent.ID, Equals, util.UintToString(id))
 }
