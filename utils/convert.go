@@ -7,5 +7,5 @@ func UintToString(number uint) string {
 }
 
 func Float64ToString(number float64) string {
-	return strconv.FormatFloat(number, 'f', 10, 64)
+	return strconv.FormatFloat(number, 'f', 0, 64)
 }

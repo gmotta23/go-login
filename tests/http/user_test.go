@@ -4,6 +4,7 @@ import (
 	"gmtc/login/controllers"
 	"gmtc/login/setup"
 	. "gmtc/login/tests"
+	"gmtc/login/utils"
 	"net/http/httptest"
 	"testing"
 
@@ -80,9 +81,7 @@ func (s *UserRouteSuite) TestLogin(c *C) {
 	user := responseBody["user"].(map[string]interface{})
 	token := responseBody["token"].(string)
 
-	// c.Assert(utils.Float64ToString(float64(user["ID"])), Equals, utils.UintToString(userDB.ID))
-	// TODO: Fix this test
-	c.Assert(user["ID"], NotNil)
+	c.Assert(utils.Float64ToString(float64(user["ID"].(float64))), Equals, utils.UintToString(userDB.ID))
 	c.Assert(user["Password"], IsNil)
 	c.Assert(user["Email"], Equals, payload.Email)
 	c.Assert(token, NotNil)
